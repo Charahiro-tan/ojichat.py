@@ -1,6 +1,7 @@
 import logging
 import random
 import re
+from typing import Literal
 
 import jaconv
 from gimei import Gimei
@@ -19,7 +20,7 @@ class OjichatGenerator:
 
     def __init__(
         self,
-        name: str = "",
+        name: str | Literal[-1] = "",
         seed: int | float | str | bytes | bytearray | None = None,
         emoji_num: int = 4,
         punc_level: int = 0,
@@ -46,6 +47,15 @@ class OjichatGenerator:
         Returns:
             OjiMessage
         """  # noqa: E501
+
+        # 名前が-1だった場合に名前を先に生成してシード値＋名前ランダムを実現する
+        if self._name == -1:
+            gimei = Gimei("female").name
+            first = random.choice(
+                [gimei.first.kanji, gimei.first.hiragana, gimei.first.katakana]
+            )
+            self._name = first
+
         # シード固定
         if self._seed is None:
             self._seed = random.randint(0, 100000000000)
@@ -65,7 +75,7 @@ class OjichatGenerator:
         result = self._insert_punctuations(converted_message)
 
         return_msg = OjiMessage(
-            self._name, self._seed, self._punc_level, self._emoji_num, result
+            str(self._name), self._seed, self._punc_level, self._emoji_num, result
         )
 
         # fmt: off
@@ -93,7 +103,7 @@ class OjichatGenerator:
     def set_props(
         self,
         *,
-        name: str | None = None,
+        name: str | Literal[-1] | None = None,
         seed: int | float | str | bytes | bytearray | None = None,
         emoji_num: int | None = None,
         punc_level: int | None = None,
@@ -101,12 +111,15 @@ class OjichatGenerator:
         """プロパティを変更する。すべてオプションでキーワード引数強制です。
 
         Args:
-            name (str | None, optional): 女の子の名前
+            name (str | Literal[-1] | None, optional): 女の子の名前(-1で再抽選)
             seed (int | float | str | bytes | bytearray | None, optional): シード値(-1で再抽選)
             emoji_num (int | None, optional): 絵文字/顔文字の最大連続数
             punc_level (int | None, optional):  句読点挿入頻度レベル(0-3)
         """  # noqa: E501
-        if name is not None:
+        if name == -1:
+            logger.debug("[set_props](name) name reset")
+            self._name = name
+        elif name is not None:
             logger.debug(f"[set_props](name){name}")
             self._name = name
 
@@ -210,7 +223,7 @@ class OjichatGenerator:
         if "{TARGET_NAME}" in message:
             if self._name:
                 # 引数として名前が存在した場合にはそれを使う
-                name = self._name + name_suffix
+                name = str(self._name) + name_suffix
                 logger.debug("[convert_tags](self._name)" + name)
                 message = message.replace("{TARGET_NAME}", name)
             else:

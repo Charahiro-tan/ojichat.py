@@ -29,7 +29,7 @@ Options:
   -h, --help        ヘルプを表示
   -V, --version     バージョンを表示
   -s, --seed <Any>  シード値を指定する
-  -n, --name <Any>  女の子の名前を指定する
+  -n, --name <Any>  女の子の名前を指定する(-1でランダム)
   -e <number>       絵文字/顔文字の最大連続数 [default: 4]
   -p <level>        句読点挿入頻度レベル [min:0, max:3] [default: 0]
   -q, --quiet       出力を結果のみにします  デバッグモードと併用不可
@@ -74,6 +74,9 @@ emote = args.e
 punc = args.p
 loglevel = 20
 stdin = False
+
+if name == "-1":
+    name = -1
 
 try:
     seed = int(seed)

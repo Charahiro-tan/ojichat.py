@@ -10,7 +10,7 @@ Python 3.11
 
 ## インストール
 ```sh
-pip install ojichat.py
+pip install ojichat-py
 ```
 `ojichat`というパッケージもありますが別のパッケージですのでご注意ください。  
 おじさんで環境が汚れるのが嫌な方は仮想環境でご利用ください。  
@@ -24,7 +24,7 @@ Options:
   -h, --help        ヘルプを表示
   -V, --version     バージョンを表示
   -s, --seed <Any>  シード値を指定する
-  -n, --name <Any>  女の子の名前を指定する
+  -n, --name <Any>  女の子の名前を指定する(-1でランダム)
   -e <number>       絵文字/顔文字の最大連続数 [default: 4]
   -p <level>        句読点挿入頻度レベル [min:0, max:3] [default: 0]
   -q, --quiet       出力を結果のみにします  デバッグモードと併用不可
@@ -52,6 +52,11 @@ $ ojichat -q --json
 $ ojichat -q -n ミコ -s 53304354378 --json
 ->{"name": "ミコ", "seed": 53304354378, "punc_level": 0, "emoji_num": 4,
   "message": "ミコチャン、お疲れ様〜🎵😋（笑）ちょっと電話できるかな❓（￣ー￣?）🤔❓このホテル🏨、クラブサンドイッチ🥪がオイシイんだって❗💗😊ｵﾚと一緒に行こうよ😘😃なんてね😘😃☀ "}
+
+名前だけをランダムに変更する
+$ ojichat -q -n -1 -s 53304354378 --json
+->{"name": "萌美", "seed": 53304354378, "punc_level": 0, "emoji_num": 4,
+  "message": "萌美チャン、お疲れ様〜🎵😋（笑）ちょっと電話できるかな❓（￣ー￣?）🤔❓このホテル🏨、クラブサンドイッチ🥪がオイシイんだって❗💗😊ｵﾚと一緒に行こうよ😘😃なんてね😘😃☀ "}
 
 標準入力から名前を渡す(ただし、PowerShellで日本語をパイプで渡すと文字化けします)
 $ echo リン | ojichat
@@ -84,6 +89,11 @@ result1 = ojichat.generator()
 ojichat.set_props(name="ひな")
 result2 = ojichat.generator()
 
+# シード値で文章を固定しつつ名前をランダムに変更する
+result1 = ojichat.generator()
+ojichat.set_props(name=-1)
+result2 = ojichat.generator()
+
 # 生成した文章の名前だけ利用して新たな文章を生成する
 result1 = ojichat.generator()
 ojichat.set_props(name=result1.name, seed=-1)
@@ -96,8 +106,6 @@ result = ojichat.generator()
 # 渡せる引数等はdocstringをご覧ください
 ```
 ### 注意事項
-- シード値で生成している都合上、文章を固定して名前を再抽選することはできません。
-- 任意の名前に変更することはできるのでニコイチにすることで一応実現はできます。
 - 引数は基本的に本家を参考にしてますので[本家](https://github.com/greymd/ojichat)の説明も合わせてご覧ください。
 - おじさんは一途なので本家の変更に追随していくつもりですが、おじさんは気まぐれでもあるので違う道を走り始めるかもしれません。
 ## 問い合わせ

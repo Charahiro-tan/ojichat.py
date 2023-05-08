@@ -31,7 +31,7 @@ def test_2():
 
 def test_3():
     print("")
-    g1 = OjichatGenerator()
+    g1 = OjichatGenerator(name=-1)
     result1 = g1.generator()
     print(result1)
     g2 = OjichatGenerator(
@@ -44,7 +44,7 @@ def test_3():
 
 def test_4():
     print("")
-    g = OjichatGenerator()
+    g = OjichatGenerator(name=-1)
     result1 = g.generator()
     print(result1)
     g.set_props(name=result1.name, seed=-1)
@@ -67,3 +67,15 @@ def test_5():
     s = "いつえﾁｬﾝ、おっは〜(^з<)(^o^)今日はどんな一日だった✋❓⁉😜⁉️⁉僕はプライベートで、いつえﾁｬﾝを癒やして(^o^)😋❗あげたい😃✋って思ってるよ(＃￣З￣)😎🙂（￣▽￣）"  # noqa
     print(s)
     assert result.message == s
+
+
+def test_6():
+    print("")
+    g = OjichatGenerator(name=-1)
+    result1 = g.generator()
+    print(result1)
+    g.set_props(name=-1)
+    result2 = g.generator()
+    print(result2)
+    assert result1.seed == result2.seed
+    assert result1.name != result2.name
