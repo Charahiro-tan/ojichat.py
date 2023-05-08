@@ -19,7 +19,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pdm sync
+          pdm sync -d -G
       - name: Run Tests
         run: |
           pytest
