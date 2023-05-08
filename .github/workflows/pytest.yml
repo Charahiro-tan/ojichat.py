@@ -22,4 +22,4 @@ jobs:
           pdm sync --no-self
       - name: Run Tests
         run: |
-          python -m pytest
+          pdm run -v pytest -s -v tests
