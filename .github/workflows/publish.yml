@@ -18,13 +18,16 @@ jobs:
           fetch-depth: 0
       - name: check branch
         run: |
-          $branchs = git branch --contains $env:GITHUB_REF
-          $branchsArray = $branchs -split ' '
-          foreach ($branch in $branchsArray) {
-            if ($branch -eq 'main') {
+          branchs=$(git branch --contains "$GITHUB_REF")
+          branchsArray=($branchs)
+          
+          for branch in "${branchsArray[@]}"
+          do
+            if [ "$branch" = "main" ]; then
               exit 0
-            }
-          }
+            fi
+          done
+
           exit 1
       - name: Setup PDM
         uses: pdm-project/setup-pdm@v3
