@@ -1,0 +1,52 @@
+name: Build
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: check branch
+        run: |
+          $branchs = git branch --contains $env:GITHUB_REF
+          $branchsArray = $branchs -split ' '
+          foreach ($branch in $branchsArray) {
+            if ($branch -eq 'main') {
+              exit 0
+            }
+          }
+          exit 1
+      - name: Setup PDM
+        uses: pdm-project/setup-pdm@v3
+        with:
+          python-version: '3.11'
+          enable-pep582: false
+      - name: Install dependencies
+        run: pdm install
+      - name: build binary
+        run: pdm nuitka
+      - name: make zip
+        run: |
+          $tag = $env:GITHUB_REF -replace 'refs/tags/', ''
+          $tag = $tag -replace '^v', ''
+          $tag = $tag -replace '\.', '-'
+          $dir = "ojichat$tag"
+          mkdir $dir
+          mv ojichat.exe README.md CREDITS.md "./$dir"
+          Add-Type -Assembly System.IO.Compression.FileSystem
+          [System.IO.Compression.ZipFile]::CreateFromDirectory($dir, "./$dir_windows.zip")
+      - name: update release
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: false
+          prerelease: false
+          files: ojichat*.zip
