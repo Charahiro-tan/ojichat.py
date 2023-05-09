@@ -12,7 +12,7 @@ dev = [
 [tool.pdm.scripts]
 ojichat = {call = "ojichat.__main__:__main__"}
 pytest = "python -m pytest -v -s tests"
-nuitka = "python -m nuitka --onefile --include-package-data=gimei ojichat"
+nuitka = "python -m nuitka --onefile --follow-imports --include-package-data=gimei ojichat"
 
 [tool.ruff]
 per-file-ignores = {"__init__.py" = ["E402", "F401", "F403"]}
