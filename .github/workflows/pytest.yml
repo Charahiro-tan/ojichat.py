@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pdm sync --no-self
+          pdm install
       - name: Run Tests
         run: |
           pdm run pytest
