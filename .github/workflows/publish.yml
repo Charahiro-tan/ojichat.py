@@ -1,0 +1,38 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: check branch
+        run: |
+          $branchs = git branch --contains $env:GITHUB_REF
+          $branchsArray = $branchs -split ' '
+          foreach ($branch in $branchsArray) {
+            if ($branch -eq 'main') {
+              exit 0
+            }
+          }
+          exit 1
+      - name: Setup PDM
+        uses: pdm-project/setup-pdm@v3
+        with:
+          python-version: '3.11'
+          enable-pep582: false
+      - name: Publish package
+        run: |
+          pdm config repository.pypi.username "__token__"
+          pdm config repository.pypi.password ${{secrets.PYPI_TOKEN}}
+          pdm publish
