@@ -1,4 +1,4 @@
-__version__ = "0.0.1"
+__version__ = "0.1.0"
 github_url = "https://github.com/Charahiro-tan/ojichat.py"
 license = "MIT License"
 

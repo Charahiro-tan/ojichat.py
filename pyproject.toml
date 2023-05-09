@@ -36,7 +36,11 @@ readme = "README.md"
 license = {text = "MIT"}
 keywords = ["Japanese", "ojichat", "text", "generator"]
 classifiers = [
-    "License :: OSI Approved :: MIT License"
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11"
 ]
 scripts = { ojichat = "ojichat.__main__:__main__" }
 

@@ -14,6 +14,7 @@ pip install ojichat-py
 ```
 `ojichat`というパッケージもありますが別のパッケージですのでご注意ください。  
 おじさんで環境が汚れるのが嫌な方は仮想環境でご利用ください。  
+Windowsの方は[Releases](https://github.com/Charahiro-tan/ojichat.py/releases)に.exeがあります。
 
 ## 使い方
 ### CLI
