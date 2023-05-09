@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -33,7 +33,7 @@ jobs:
       - name: Install dependencies
         run: pdm install
       - name: build binary
-        run: pdm nuitka
+        run: echo "Yes" | pdm nuitka
       - name: make zip
         run: |
           $tag = $env:GITHUB_REF -replace 'refs/tags/', ''
