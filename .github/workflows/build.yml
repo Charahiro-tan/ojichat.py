@@ -41,9 +41,8 @@ jobs:
           $tag = $tag -replace '\.', '-'
           $dir = "ojichat$tag"
           mkdir $dir
-          Move-Item -Path "ojichat.exe","README.md","CREDITS.md" -Destination ".\$dir"
-          Add-Type -Assembly System.IO.Compression.FileSystem
-          [System.IO.Compression.ZipFile]::CreateFromDirectory(".\$dir", ".\$dir_windows.zip")
+          Move-Item -Path "ojichat.exe","README.md","CREDITS.md" -Destination $dir
+          Compress-Archive -Path $dir -DestinationPath "$dir\_windows.zip"
       - name: update release
         uses: softprops/action-gh-release@v1
         with:
