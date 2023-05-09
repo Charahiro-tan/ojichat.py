@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 uniq_tags: dict[str, list[str]] = {
     # おじさんの一人称
     "FIRST_PERSON": [

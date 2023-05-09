@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 # ojisan_emotion ... おじさんの感情辞書
 ojisan_emotion: dict[str, str] = {
     # GREETING ... 挨拶
