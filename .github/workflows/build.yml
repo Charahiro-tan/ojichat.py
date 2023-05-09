@@ -40,11 +40,9 @@ jobs:
         run: |
           $tag = $env:GITHUB_REF -replace 'refs/tags/', ''
           $tag = $tag -replace '^v', ''
-          $tag = $tag -replace '\.', '-'
-          $dir = "ojichat$tag"
-          mkdir $dir
-          Move-Item -Path "ojichat.exe","README.md","CREDITS.md" -Destination $dir
-          Compress-Archive -Path $dir -DestinationPath "$dir-windows.zip"
+          $zip = "ojichat$tag-windows.zip"
+          $files = "ojichat.exe", "README.md", "CREDITS.md", "LICENSE"
+          Compress-Archive -Path $files -DestinationPath $zip
           
       - name: update release
         uses: softprops/action-gh-release@v1
