@@ -43,6 +43,7 @@ jobs:
           mkdir $dir
           Move-Item -Path "ojichat.exe","README.md","CREDITS.md" -Destination $dir
           Compress-Archive -Path $dir -DestinationPath "$dir\_windows.zip"
+          
       - name: update release
         uses: softprops/action-gh-release@v1
         with:
