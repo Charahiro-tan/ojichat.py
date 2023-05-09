@@ -9,6 +9,8 @@ jobs:
   build:
     runs-on: windows-latest
     timeout-minutes: 15
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -42,7 +44,7 @@ jobs:
           $dir = "ojichat$tag"
           mkdir $dir
           Move-Item -Path "ojichat.exe","README.md","CREDITS.md" -Destination $dir
-          Compress-Archive -Path $dir -DestinationPath "$dir\_windows.zip"
+          Compress-Archive -Path $dir -DestinationPath "$dir-windows.zip"
           
       - name: update release
         uses: softprops/action-gh-release@v1
