@@ -7,7 +7,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        python-version: ['3.11']
+        python-version: ['3.7', '3.8', '3.9', '3.10', '3.11']
         os: [ubuntu-latest]
 
     steps:
@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pdm sync --no-self
+          pdm install
       - name: Run Tests
         run: |
           pdm run pytest
