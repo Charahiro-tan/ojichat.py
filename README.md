@@ -1,5 +1,16 @@
 <h1 align="center">𝙤𝙟𝙞𝙘𝙝𝙖𝙩.𝙥𝙮</h1>
 <h2 align="center">𝑶𝒋𝒊𝒔𝒂𝒏 𝑵𝒂𝒏𝒄𝒉𝒂𝒕𝒕𝒆 (𝒐𝒋𝒊𝒄𝒉𝒂𝒕) 𝑮𝒆𝒏𝒆𝒓𝒂𝒕𝒐𝒓</h2>
+<p align="center">
+  <a href="https://github.com/Charahiro-tan/ojichat.py/blob/main/LICENSE">
+    <img alt="GitHub" src="https://img.shields.io/github/license/Charahiro-tan/ojichat.py">
+  </a>
+  <a href="https://pypi.org/project/ojichat-py/">
+    <img alt="PyPI" src="https://img.shields.io/pypi/v/ojichat-py">
+  </a>
+  <a href="https://github.com/Charahiro-tan/ojichat.py/actions/workflows/codeql.yml">
+    <img src="https://github.com/Charahiro-tan/ojichat.py/actions/workflows/codeql.yml/badge.svg" alt="CodeQL">
+  </a>
+</p>
   
 ## なんだこれは
 Go製ツール[ojichat](https://github.com/greymd/ojichat)のPython移植版です
